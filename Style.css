@@ -742,5 +742,12 @@ body {
         max-width: 100% !important;
     }
 }
+.submenu {
+    display: none;
+}
+
+.submenu.open {
+    display: block;
+}
 
 

@@ -19,6 +19,33 @@ document.querySelectorAll(".sidebar a").forEach(link => {
 
 
 /* ==========================
+   ✅ SUBMENÚS EN MÓVIL (soluciona que desaparezcan)
+   ========================== */
+const submenuItems = document.querySelectorAll(".has-submenu");
+
+submenuItems.forEach(item => {
+    const trigger = item.querySelector("a");
+    const submenu = item.querySelector(".submenu");
+
+    trigger.addEventListener("click", (e) => {
+        // SOLO activar toggle en móvil/tablet
+        if (window.innerWidth <= 900) {
+            e.preventDefault();
+            submenu.classList.toggle("open");
+        }
+    });
+});
+
+// Cerrar submenús al tocar fuera
+document.addEventListener("click", (e) => {
+    if (!e.target.closest(".has-submenu")) {
+        document.querySelectorAll(".submenu.open")
+            .forEach(s => s.classList.remove("open"));
+    }
+});
+
+
+/* ==========================
    ✅ PESTAÑAS (Inicio / Acerca / Contacto)
    ========================== */
 const tabs = document.querySelectorAll(".tab");
