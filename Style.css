@@ -742,12 +742,9 @@ body {
         max-width: 100% !important;
     }
 }
-.submenu {
-    display: none;
-}
+.submenu { display: none; }
+.submenu.open { display: block; }
 
-.submenu.open {
-    display: block;
-}
-
+/* si quieres tambien que el li refleje el estado */
+.menu-item.submenu-open > a { /* estilos visuales opcionales */ }
 
