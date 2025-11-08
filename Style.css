@@ -742,25 +742,5 @@ body {
         max-width: 100% !important;
     }
 }
-/* submenus ocultos por defecto */
-.sidebar .submenu {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.28s ease, opacity 0.18s ease;
-  opacity: 0;
-  display: block; /* keep block so max-height animates; visibility controlled via opacity */
-}
-
-/* submenus abiertos */
-.sidebar .menu-item.open > .submenu,
-.sidebar .submenu.open {
-  max-height: 1000px; /* suficiente */
-  opacity: 1;
-}
-
-/* Visual del item abierto */
-.sidebar .menu-item.open > a {
-  background: linear-gradient(90deg, rgba(37,99,235,0.06), rgba(124,58,237,0.03));
-}
 
 
