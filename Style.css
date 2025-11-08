@@ -742,5 +742,25 @@ body {
         max-width: 100% !important;
     }
 }
+/* ==========================
+   ✅ SUBMENÚ MOVIL (abrir/cerrar con clic)
+   ========================== */
+
+/* Oculta los submenús por defecto */
+.sidebar .submenu {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+
+/* Cuando el menú-item recibe la clase .open */
+.sidebar .menu-item.open > .submenu {
+    max-height: 500px; /* suficiente para uno o varios elementos */
+}
+
+/* Hace que el item padre muestre que está abierto */
+.sidebar .menu-item.open > a {
+    background: #e0e0e0;
+}
 
 

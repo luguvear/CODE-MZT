@@ -19,6 +19,22 @@ document.querySelectorAll(".sidebar a").forEach(link => {
 
 
 /* ==========================
+   ✅ SUBMENÚ MÓVIL (clic para abrir/cerrar)
+   ========================== */
+document.querySelectorAll(".menu-item > a").forEach(item => {
+    item.addEventListener("click", (e) => {
+
+        if (window.innerWidth <= 900) {
+            e.preventDefault(); // Evita que el enlace navegue
+
+            const parent = item.parentElement;
+            parent.classList.toggle("open");
+        }
+    });
+});
+
+
+/* ==========================
    ✅ PESTAÑAS (Inicio / Acerca / Contacto)
    ========================== */
 const tabs = document.querySelectorAll(".tab");
@@ -26,14 +42,13 @@ const panels = document.querySelectorAll(".tab-panel");
 
 tabs.forEach(tab => {
     tab.addEventListener("click", () => {
-        // Quitar activos previos
+
         tabs.forEach(t => t.classList.remove("active"));
         panels.forEach(p => {
             p.classList.remove("active");
             p.hidden = true;
         });
 
-        // Activar la pestaña seleccionada
         tab.classList.add("active");
         const target = tab.dataset.target;
         const panel = document.getElementById(target);
