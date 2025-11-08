@@ -1,172 +1,204 @@
-/* script.js — solución definitiva para tu caso:
-   - parents con href reales (cctv.html...) => 1º toque abre submenu, 2º toca navega
-   - mobile (<=900px) behavior, hover en desktop
-   - cierra al tocar fuera, cierra sidebar al navegar desde submenu
+/* script.js — compatible con tu HTML (li.menu-item > a + ul.submenu)
+   Manejo robusto de sidebar, submenús (touch + mouse) y tabs.
 */
 (function () {
   'use strict';
 
-  const DEBUG = false; // poner true para ver logs en consola
+  const DEBUG = false; // pon true si quieres ver logs en consola
 
   const toggleSidebarBtn = document.getElementById('toggleSidebar');
   const sidebar = document.getElementById('sidebar');
 
-  // Detecta último tipo de puntero
+  // detecta el último tipo de puntero (mouse, touch, pen)
   let lastPointerType = null;
   window.addEventListener('pointerdown', (e) => {
-    lastPointerType = e.pointerType;
-    if (DEBUG) console.log('[DBG] pointerdown', lastPointerType);
+    lastPointerType = e.pointerType; // "mouse" | "touch" | "pen"
+    if (DEBUG) console.log('[DBG] pointerdown:', lastPointerType);
   }, { passive: true });
 
-  // Helper: get menu items que tienen submenu
-  const menuItems = Array.from(document.querySelectorAll('.menu-item'))
-    .filter(mi => mi.querySelector('.submenu'));
-
-  // Inicializar atributos ARIA y estado
-  menuItems.forEach((mi, i) => {
-    const trigger = mi.querySelector('a');
-    const submenu = mi.querySelector('.submenu');
-    if (!trigger || !submenu) return;
-    const sid = submenu.id || `submenu-${i}`;
-    submenu.id = sid;
-    trigger.setAttribute('aria-haspopup', 'true');
-    trigger.setAttribute('aria-controls', sid);
-    trigger.setAttribute('aria-expanded', 'false');
-    submenu.setAttribute('aria-hidden', 'true');
-    mi.classList.remove('open');
-    submenu.classList.remove('open');
-  });
-
-  // Abrir / cerrar helpers
-  function openItem(mi) {
-    const trigger = mi.querySelector('a');
-    const submenu = mi.querySelector('.submenu');
-    if (!submenu) return;
-    // cerrar otros
-    menuItems.forEach(other => { if (other !== mi) closeItem(other); });
-    mi.classList.add('open');
-    submenu.classList.add('open');
-    trigger.setAttribute('aria-expanded', 'true');
-    submenu.setAttribute('aria-hidden', 'false');
-    if (DEBUG) console.log('[DBG] open', trigger.textContent.trim());
-  }
-  function closeItem(mi) {
-    const trigger = mi.querySelector('a');
-    const submenu = mi.querySelector('.submenu');
-    if (!submenu) return;
-    mi.classList.remove('open');
-    submenu.classList.remove('open');
-    trigger.setAttribute('aria-expanded', 'false');
-    submenu.setAttribute('aria-hidden', 'true');
-    if (DEBUG) console.log('[DBG] close', trigger.textContent.trim());
-  }
-  function closeAll() { menuItems.forEach(mi => closeItem(mi)); }
-
-  // Sidebar toggle
+  // --------------- Sidebar open/close ----------------
   if (toggleSidebarBtn && sidebar) {
     toggleSidebarBtn.addEventListener('click', (e) => {
       e.preventDefault();
       sidebar.classList.toggle('open');
       document.body.classList.toggle('noscroll', sidebar.classList.contains('open'));
-      if (DEBUG) console.log('[DBG] sidebar toggled:', sidebar.classList.contains('open'));
+      if (DEBUG) console.log('[DBG] sidebar toggled. open=', sidebar.classList.contains('open'));
     });
   }
 
-  // Comportamiento para cada menu-item con submenu
-  menuItems.forEach(mi => {
-    const trigger = mi.querySelector('a');
-    const submenu = mi.querySelector('.submenu');
+  // cerrar sidebar al hacer click en enlaces que NO pertenezcan a un parent con submenu (solo en móvil)
+  document.addEventListener('click', (e) => {
+    const link = e.target.closest && e.target.closest('.sidebar a');
+    if (!link) return;
+    const parentItem = link.closest('.menu-item');
+    // si el link está dentro de un menu-item que tiene submenu, no cerrar (se maneja en el submenu logic)
+    const hasSubmenu = parentItem && parentItem.querySelector && parentItem.querySelector('.submenu');
+    if (window.innerWidth <= 900 && !hasSubmenu) {
+      sidebar && sidebar.classList.remove('open');
+      document.body.classList.remove('noscroll');
+      if (DEBUG) console.log('[DBG] sidebar closed after link click (no submenu).');
+    }
+  });
+
+  // ------------------ Submenu logic -------------------
+  const menuItems = Array.from(document.querySelectorAll('.menu-item')).filter(mi => mi.querySelector('.submenu'));
+
+  // inicializar aria y estado
+  menuItems.forEach((item, idx) => {
+    const trigger = item.querySelector('a');
+    const submenu = item.querySelector('.submenu');
     if (!trigger || !submenu) return;
 
-    /* Strategy:
-       - En móvil (<=900) y si existe submenu:
-         * Si el submenu NO está abierto: 1º toque -> PREVENT default y abrir submenu.
-         * Si el submenu YA está abierto: 2º toque -> permitir navegación normal.
-    */
+    const sid = submenu.id || `submenu-${idx}`;
+    submenu.id = sid;
+    trigger.setAttribute('aria-haspopup', 'true');
+    trigger.setAttribute('aria-controls', sid);
+    trigger.setAttribute('aria-expanded', 'false');
+    submenu.setAttribute('aria-hidden', 'true');
 
+    // asegurar que css pueda usar .open tanto en li como en ul
+    item.classList.remove('submenu-open');
+    submenu.classList.remove('open');
+  });
+
+  function openItem(item) {
+    const trigger = item.querySelector('a');
+    const submenu = item.querySelector('.submenu');
+    if (!submenu) return;
+    // cerrar otros antes (comportamiento móvil típico)
+    menuItems.forEach(mi => { if (mi !== item) closeItem(mi); });
+    item.classList.add('submenu-open');
+    submenu.classList.add('open');
+    trigger.setAttribute('aria-expanded', 'true');
+    submenu.setAttribute('aria-hidden', 'false');
+    if (DEBUG) console.log('[DBG] openItem:', trigger.textContent.trim());
+  }
+
+  function closeItem(item) {
+    const trigger = item.querySelector('a');
+    const submenu = item.querySelector('.submenu');
+    if (!submenu) return;
+    item.classList.remove('submenu-open');
+    submenu.classList.remove('open');
+    trigger.setAttribute('aria-expanded', 'false');
+    submenu.setAttribute('aria-hidden', 'true');
+    if (DEBUG) console.log('[DBG] closeItem:', trigger.textContent.trim());
+  }
+
+  function closeAll() {
+    menuItems.forEach(mi => closeItem(mi));
+  }
+
+  // manejar eventos por cada item con submenu
+  menuItems.forEach(item => {
+    const trigger = item.querySelector('a');
+    const submenu = item.querySelector('.submenu');
+
+    // click/tap en el trigger: en móvil/touch mostramos toggle y prevenimos navegación
     trigger.addEventListener('click', (ev) => {
-      // Solo intervenir en pantallas móviles o cuando el usuario use touch
-      if (window.innerWidth <= 900 || lastPointerType === 'touch') {
-        const isOpen = mi.classList.contains('open');
-        if (!isOpen) {
-          // Abrir y evitar navegación la primera vez
-          ev.preventDefault();
-          openItem(mi);
-          // opcional: desplazar un poco para mostrar submenu si está fuera de vista
-          if (mi.scrollIntoView) mi.scrollIntoView({ block: 'nearest' });
-        } else {
-          // Si ya está abierto, dejamos que la navegación ocurra (no preventDefault)
-          // Esto permite que el 2do toque navegue a cctv.html, etc.
-          // También puedes forzar la navegación con: window.location = trigger.href;
-          // No hacemos nada aquí.
-          if (DEBUG) console.log('[DBG] second tap -> allow navigation on', trigger.href);
-        }
+      // detectar si queremos togglear: si hay submenu y estamos en móvil o fue touch
+      if (window.innerWidth <= 992 || lastPointerType === 'touch') {
+        ev.preventDefault(); // evitar navegación inmediata
+        const isOpen = submenu.classList.contains('open');
+        if (isOpen) closeItem(item);
+        else openItem(item);
       } else {
-        // Desktop: no interferimos (click navegará normalmente)
+        // en escritorio, si el usuario hace click dejamos que navegue normalmente
+        // (si quieres evitar navegación en desktop, descomenta next line)
+        // ev.preventDefault();
       }
     });
 
-    // Soporte keyboard
+    // keyboard accessibility: Enter/Space toggle, Esc close
     trigger.addEventListener('keydown', (ev) => {
       if (ev.key === 'Enter' || ev.key === ' ') {
         ev.preventDefault();
-        const isOpen = mi.classList.contains('open');
-        if (!isOpen) openItem(mi);
-        else {
-          // si ya abierto y el href existe, navegar
-          const href = trigger.getAttribute('href');
-          if (href && href !== '#') window.location.href = href;
-        }
+        const isOpen = submenu.classList.contains('open');
+        if (isOpen) closeItem(item);
+        else openItem(item);
       } else if (ev.key === 'Escape' || ev.key === 'Esc') {
-        closeItem(mi);
+        closeItem(item);
         trigger.focus();
       }
     });
 
-    // Hover para desktop (pointer enter/leave)
-    mi.addEventListener('pointerenter', (ev) => {
-      if (ev.pointerType === 'mouse') openItem(mi);
+    // pointer hover behavior for mouse users (desktop)
+    item.addEventListener('pointerenter', (ev) => {
+      if (ev.pointerType === 'mouse') {
+        // abre por hover en desktop
+        openItem(item);
+      }
     });
-    mi.addEventListener('pointerleave', (ev) => {
-      if (ev.pointerType === 'mouse') closeItem(mi);
+    item.addEventListener('pointerleave', (ev) => {
+      if (ev.pointerType === 'mouse') {
+        closeItem(item);
+      }
     });
 
-    // Clicks dentro del submenu: permitir navegación y cerrar sidebar si mobile
+    // si se hace click dentro del submenu, prevenir burbujeo para no cerrar por el document click
     submenu.addEventListener('click', (ev) => {
       ev.stopPropagation();
       const a = ev.target.closest && ev.target.closest('a');
       if (a && window.innerWidth <= 900) {
-        // cerramos sidebar para que la navegación sea limpia
+        // si se selecciona un link dentro de submenu en móvil, cerramos sidebar (opcional)
+        // y permitimos navegación
         sidebar && sidebar.classList.remove('open');
         document.body.classList.remove('noscroll');
       }
     });
   });
 
-  // Click fuera: cierra submenus
+  // Click fuera cierra submenus
   document.addEventListener('click', (ev) => {
     if (!ev.target.closest('.menu-item')) {
       closeAll();
+      if (DEBUG) console.log('[DBG] click outside -> closeAll');
     }
   });
 
-  // Resize: al volver a desktop, cerrar todo
+  // resize: si vamos a desktop, cerramos sidebar mobile y submenus
   window.addEventListener('resize', () => {
     if (window.innerWidth > 992) {
       sidebar && sidebar.classList.remove('open');
       document.body.classList.remove('noscroll');
       closeAll();
+      if (DEBUG) console.log('[DBG] resize >992 -> closed sidebar & submenus');
     }
   });
 
-  // Cerrar sidebar al hacer scroll en mobile (opcional)
-  window.addEventListener('scroll', () => {
-    if (window.innerWidth <= 900) {
-      // sidebar && sidebar.classList.remove('open');
-      // document.body.classList.remove('noscroll');
-      // comentado por defecto
-    }
+  // OPTIONAL: cerrar submenus al hacer scroll en móvil (comenta si no quieres)
+  // window.addEventListener('scroll', () => {
+  //   if (window.innerWidth <= 900) closeAll();
+  // });
+
+  // ---------------- Tabs (inicio / acerca / contacto) ----------------
+  const tabs = document.querySelectorAll('.tab');
+  const panels = document.querySelectorAll('.tab-panel');
+  if (tabs.length && panels.length) {
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => t.classList.remove('active'));
+        panels.forEach(p => { p.classList.remove('active'); p.hidden = true; });
+
+        tab.classList.add('active');
+        const target = tab.dataset.target;
+        const panel = document.getElementById(target);
+        if (panel) {
+          panel.classList.add('active');
+          panel.hidden = false;
+        }
+      });
+    });
+  }
+
+  // ---------------- Thumbnails gallery ----------------
+  document.querySelectorAll('.thumbnail img').forEach(thumb => {
+    thumb.addEventListener('click', function () {
+      const cont = this.closest('.imagen-container');
+      const main = cont && cont.querySelector('.main-display img');
+      if (main) main.src = this.src;
+    });
   });
 
-  if (DEBUG) console.log('[DBG] menú script listo.');
+  if (DEBUG) console.log('[DBG] script.js inicializado');
 })();
