@@ -1,0 +1,746 @@
+/* Reset ligero */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root{
+    --bg-1: #f6f8fb;
+    --surface: #ffffff;
+    --muted: #64748b;
+    --text: #0f172a;
+    --accent: #2563eb; /* azul */
+    --accent-2: #7c3aed; /* violeta secundario */
+    --card-shadow: 0 10px 30px rgba(2,6,23,0.06);
+    --soft-shadow: 0 6px 18px rgba(2,6,23,0.04);
+    /* Hero image - example optimized variants (picsum). Replace with your own images if desired.
+       Large: 1600x900, Medium: 1024x576, Small: 640x360 */
+    --hero-image-large: url('https://picsum.photos/id/1011/1600/900');
+    --hero-image-medium: url('https://picsum.photos/id/1011/1024/576');
+    --hero-image-small: url('https://picsum.photos/id/1011/640/360');
+    /* default hero image used by .layout::before (will be overridden by media queries) */
+    --hero-image: var(--hero-image-large);
+    --hero-opacity: 0.12; /* tweak to increase/decrease hero visibility */
+    /* header offset used by sticky sidebar and fixed sidebar on mobile */
+    --header-offset: 60px;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    color: var(--text);
+    background: radial-gradient(1200px 600px at 10% 10%, rgba(238,246,255,0.06), transparent 20%),
+                linear-gradient(180deg, #f4f7fb 0%, #eef2f9 100%);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Header */
+.site-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem 1.25rem;
+    background: linear-gradient(90deg, rgba(37,99,235,0.95), rgba(124,58,237,0.95));
+    color: white;
+    box-shadow: 0 6px 20px rgba(37,99,235,0.06);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.site-title { font-size: 1.125rem; font-weight:700; letter-spacing: -0.02em; }
+
+.sidebar-toggle {
+  font-size: 1.25rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: none; /* se muestra en móvil */
+}
+
+/* Tabs */
+.tabs {
+    margin-left: auto;
+    display: flex;
+    gap: 0.5rem;
+}
+
+.tab {
+    background: transparent;
+    border: none;
+    padding: 0.45rem 0.75rem;
+    cursor: pointer;
+    border-radius: 999px;
+    color: rgba(255,255,255,0.95);
+    font-weight: 600;
+    opacity: 0.95;
+}
+
+.tab.active,
+.tab:hover {
+    background: rgba(255,255,255,0.12);
+    color: #fff;
+    transform: translateY(-1px);
+}
+
+/* Layout: sidebar + content */
+.layout {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 1.25rem;
+    padding: 1.25rem;
+}
+
+/* Hero background placed behind the layout using a pseudo element.
+     It uses --hero-image; put a file named hero.jpg in the project root or
+     change the variable to an absolute URL. The overlay keeps text legible. */
+.layout {
+    position: relative;
+    z-index: 0;
+}
+
+.layout::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background-image: linear-gradient(180deg, rgba(7,27,77,0.22), rgba(124,58,237,0.06)), var(--hero-image);
+    background-size: cover;
+    background-position: center center;
+    opacity: var(--hero-opacity);
+    filter: saturate(1.05) contrast(0.95) blur(0.6px);
+}
+
+/* Responsive adjustments: use smaller hero images and reduce/hide on small screens */
+@media (max-width: 900px) {
+    :root { --hero-image: var(--hero-image-medium); --hero-opacity: 0.08; }
+    .layout::before { background-position: center top; }
+}
+
+/* Mobile overlay shown behind the sidebar when open to dim content and allow tap-to-close */
+.mobile-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.35);
+    z-index: 9998; /* ensure overlay is below the sidebar but above content */
+}
+
+/* Slightly larger tap targets on very small screens */
+@media (max-width: 600px) {
+    .tab { padding: 0.6rem 0.9rem; font-size: 1rem; }
+    .sidebar a { padding: 0.9rem 0.85rem; }
+    .sidebar a[data-nav]::before { width: 40px; height: 40px; font-size: 0.9rem; }
+}
+
+/* ensure mobile sidebar sits above overlay and other elements */
+@media (max-width: 900px) {
+    .sidebar { z-index: 9999; }
+}
+
+@media (max-width: 480px) {
+    /* hide hero on very small screens to prioritize content and performance */
+    :root { --hero-image: var(--hero-image-small); --hero-opacity: 0.03; }
+    .layout::before { opacity: 0.03; filter: blur(0.8px) saturate(0.95); }
+}
+
+.sidebar ul { list-style: none; }
+.sidebar a {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.6rem 0.75rem;
+    color: var(--text);
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: background .18s ease, transform .12s ease, color .15s ease;
+}
+
+.sidebar a:hover {
+    background: linear-gradient(90deg, rgba(37,99,235,0.06), rgba(124,58,237,0.03));
+    color: var(--accent);
+    transform: translateX(3px);
+}
+
+/* Small circular icon for main links that have data-nav attribute */
+.sidebar a[data-nav]::before {
+    /* show a single initial to avoid overflow */
+    content: attr(data-initial);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    background: linear-gradient(180deg,var(--accent),var(--accent-2));
+    color: #fff;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    box-shadow: 0 6px 18px rgba(37,99,235,0.12);
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+/* Active state for top-level links - highlight the current section */
+.sidebar a.active,
+.sidebar a[aria-current='page'] {
+    background: linear-gradient(90deg, rgba(37,99,235,0.12), rgba(124,58,237,0.06));
+    color: var(--accent);
+    box-shadow: inset 0 0 0 1px rgba(37,99,235,0.04);
+}
+
+.sidebar .menu-item {
+    position: relative;
+    width: 100%;
+}
+
+
+.submenu {
+    display: none;
+    position: absolute;
+    left: 100%;
+    top: 0;
+    min-width: 220px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(250,250,255,0.96));
+    border: 1px solid rgba(2,6,23,0.04);
+    border-radius: 10px;
+    box-shadow: 0 12px 30px rgba(2,6,23,0.08);
+    padding: 0.5rem 0.25rem;
+    z-index: 1000;
+    margin-left: 8px;
+    transform: translateX(-6px);
+    opacity: 0;
+    transition: transform 180ms ease, opacity 160ms ease;
+}
+
+.menu-item:hover > .submenu {
+    display: block;
+    transform: translateX(0);
+    opacity: 1;
+}
+
+/* When a menu-item is explicitly opened (via JS) show its submenu as well
+   This complements :hover behavior for touch devices */
+.menu-item.open > .submenu {
+    display: block;
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.submenu li a {
+    padding: 0.5rem 0.75rem;
+    display: block;
+    color: var(--muted);
+    font-weight: 600;
+    border-radius: 8px;
+}
+
+.submenu li a:hover { background: rgba(37,99,235,0.04); color: var(--accent); }
+
+.submenu li a {
+    padding: 0.5rem 1rem;
+    color: #374151;
+    text-decoration: none;
+    display: block;
+    white-space: nowrap;
+}
+
+/* Section headers inside sidebar */
+.section-header {
+    display: block;
+    padding: 0.75rem 0.75rem;
+    color: var(--muted);
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-top: 0.75rem;
+    margin-bottom: 0.25rem;
+    border-top: 1px solid rgba(2,6,23,0.04);
+}
+
+.submenu li a:hover {
+    background: #f3f4f6;
+}
+
+/* Content area */
+.content { min-height: 60vh; }
+
+.tab-panel { background: var(--surface); border: 1px solid rgba(2,6,23,0.04); padding: 1rem; border-radius: 12px; box-shadow: var(--soft-shadow); position: relative; z-index: 2; }
+
+/* Responsive */
+@media (max-width: 900px) {
+    .layout { grid-template-columns: 1fr; }
+    /* use header offset variable so spacing matches header height; reduce layout padding on small screens */
+    .sidebar { position: fixed; left: 0; top: var(--header-offset); bottom: 0; width: 240px; transform: translateX(-110%); transition: transform .25s ease; z-index: 20; box-shadow: 0 6px 18px rgba(0,0,0,0.08); }
+    .layout { padding: 0.75rem; }
+  .sidebar.open { transform: translateX(0); }
+  .sidebar-toggle { display: inline-block; }
+  /* cuando el sidebar está abierto, evita scroll en el contenido subyacente (opcional) */
+  body.noscroll { overflow: hidden; }
+}
+.mi-imagen {
+  width: 300px;
+  height: 300px;
+  text-align: center;
+  align-items: center;
+}
+
+.contenedor {
+    display: flex;
+    gap: 2rem;
+    padding: 1.75rem;
+    background: linear-gradient(180deg, var(--surface), rgba(250,250,255,0.98));
+    border-radius: 12px;
+    box-shadow: var(--card-shadow);
+    align-items: flex-start;
+    position: relative;
+    z-index: 2; /* ensure cards are above the hero background */
+}
+
+.imagen-container {
+    flex: 0 0 45%;
+}
+
+.mi-imagen {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+/* Thumbnails area for multiple images */
+.thumbnails {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-top: 0.75rem;
+}
+
+.thumbnail {
+    position: relative;
+    width: 72px;
+    height: 72px;
+    border-radius: 6px;
+    overflow: hidden;
+    background: #f3f4f6;
+    flex: 0 0 auto;
+}
+
+.thumbnail img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 200ms ease, filter 180ms ease; }
+
+.thumbnail.selected {
+    outline: 2px solid var(--accent);
+    box-shadow: 0 6px 18px rgba(37,99,235,0.12);
+    transform: translateY(-2px);
+}
+
+.thumb-img { cursor: pointer; }
+.thumbnail:hover img { transform: scale(1.06); filter: saturate(1.05); }
+
+.remove-btn {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    background: rgba(0,0,0,0.55);
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.file-label { display: none; }
+
+.imagen-container { display: flex; flex-direction: column; gap: 0.5rem; }
+
+/* Main display (large) */
+.main-display {
+    width: 100%;
+    max-width: 420px;
+    height: auto;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #eef2ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.main-display .main-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: contain;
+    opacity: 1;
+    transition: opacity 240ms ease-in-out;
+    will-change: opacity;
+}
+
+.texto {
+    flex: 1;
+}
+
+.texto h2 {
+    color: #1a365d;
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+}
+
+.especificaciones ul {
+    list-style: none;
+    padding: 0;
+}
+
+.especificaciones li {
+    padding: 0.8rem 0;
+    font-size: 1.1rem;
+    color: #2d3748;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.especificaciones li:last-child {
+    border-bottom: none;
+}
+
+@media (max-width: 768px) {
+    .contenedor {
+        flex-direction: column;
+        padding: 1rem;
+    }
+    
+    .imagen-container {
+        flex: 0 0 100%;
+    }
+}
+
+/* Ajustes para el sidebar y menú flotante */
+.sidebar {
+    /* Mantener la barra lateral fija en su lugar al hacer scroll en pantallas de escritorio. */
+    position: sticky;
+    /* use the header offset variable so this follows header height; default falls back to 72px */
+    top: var(--header-offset, 72px);
+    align-self: start; /* evita que la barra se estire cuando el grid cambia */
+    z-index: 30; /* por debajo del header (header tiene z-index:50) */
+    /* Permitimos que los submenús se muestren fuera de la barra lateral (no recortarlos) */
+    overflow: visible; /* conserva el comportamiento previo para que los submenus queden fuera */
+    max-height: calc(100vh - var(--header-offset, 72px)); /* opcional: limita la altura total disponible de la barra */
+}
+
+.menu-item {
+    position: relative;
+    width: 100%;
+}
+
+.submenu {
+    display: none;
+    position: absolute;
+    left: 100%;
+    top: 0;
+    min-width: 200px;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    padding: 0.5rem 0;
+    z-index: 1000; /* Aumentado para asegurar que esté por encima */
+    margin-left: 5px; /* Espacio entre menú principal y submenú */
+}
+
+.menu-item:hover > .submenu {
+    display: block;
+}
+
+/* Ajuste responsive para móviles */
+@media (max-width: 900px) {
+    .submenu {
+        position: static;
+        margin-left: 1rem;
+        box-shadow: none;
+        border-left: 2px solid #e5e7eb;
+        margin-top: 0.5rem;
+        margin-bottom: 0.5rem;
+    }
+}
+
+/* Estilos para el formulario de contacto */
+.contact-container {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.contact-info {
+    background: #f8fafc;
+    padding: 2rem;
+    border-radius: 8px;
+}
+
+.contact-info h3 {
+    margin-bottom: 1.5rem;
+    color: #1e293b;
+}
+
+.contact-info p {
+    margin-bottom: 1rem;
+    color: #64748b;
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-group label {
+    color: #374151;
+    font-weight: 500;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    padding: 0.75rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    font-size: 1rem;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.submit-btn {
+    background: #3b82f6;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.submit-btn:hover {
+    background: #2563eb;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .contact-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Improved contact form styles */
+.contact-container { max-width: 1000px; margin: 0 auto; }
+.contact-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+    background: linear-gradient(180deg,#ffffff,#fbfdff);
+    padding: 1rem;
+    border-radius: 10px;
+    border: 1px solid rgba(2,6,23,0.04);
+}
+.contact-form .form-group { display: flex; flex-direction: column; }
+.contact-form .form-group.full { grid-column: 1 / -1; }
+.contact-form label { font-weight: 600; color: #0f172a; margin-bottom: 0.35rem; }
+.contact-form input,
+.contact-form select,
+.contact-form textarea {
+    padding: 0.75rem;
+    border: 1px solid #e6eef9;
+    border-radius: 8px;
+    background: #fbfdff;
+    transition: box-shadow .12s ease, border-color .12s ease;
+}
+.contact-form input:focus,
+.contact-form select:focus,
+.contact-form textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 6px 20px rgba(37,99,235,0.08);
+}
+.contact-form .submit-btn { grid-column: 1 / -1; justify-self: start; }
+.contact-note { font-size: 0.95rem; color: var(--muted); margin-top: 0.5rem; }
+
+@media (max-width: 900px) {
+    .contact-form { grid-template-columns: 1fr; }
+    .contact-form .submit-btn { width: 100%; }
+}
+
+/* Enhanced About section styles (appended) */
+.about-text {
+    max-width: 980px;
+    margin: 0.5rem 0 1.5rem 0;
+    color: #0f172a;
+    line-height: 1.7;
+    font-size: 1rem;
+}
+.about-text .lead {
+    font-size: 1.125rem;
+    color: #0b1220;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+}
+.about-text p { margin-bottom: 0.9rem; }
+
+.service-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-top: 1rem;
+}
+.service-card {
+    background: linear-gradient(180deg, #fff, #fbfdff);
+    border: 1px solid rgba(2,6,23,0.04);
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(2,6,23,0.04);
+}
+.service-card h4 { margin-bottom: 0.5rem; color: #0b1220; font-size: 1.05rem; }
+.service-card p { margin: 0; color: #334155; font-size: 0.95rem; }
+
+.values-list {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.25rem;
+    padding: 0;
+}
+.values-list li {
+    list-style: none;
+    background: rgba(37,99,235,0.06);
+    color: var(--accent);
+    padding: 0.5rem 0.75rem;
+    border-radius: 999px;
+    font-weight: 700;
+}
+
+.about-cta { margin-top: 1.25rem; }
+.cta-button {
+    display: inline-block;
+    background: linear-gradient(90deg,var(--accent),var(--accent-2));
+    color: #fff;
+    padding: 0.65rem 1rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+@media (max-width: 900px) {
+    .service-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 600px) {
+    .service-grid { grid-template-columns: 1fr; }
+    .values-list { flex-direction: column; }
+    .about-text { padding-right: 1rem; padding-left: 1rem; }
+}
+
+/* Additional responsive refinements to make the system adapt smoothly */
+@media (max-width: 1200px) {
+    /* slightly reduce hero visibility on medium desktops */
+    :root { --hero-opacity: 0.10; }
+    .layout { gap: 1rem; }
+}
+
+@media (max-width: 900px) {
+    /* header: reduce padding and font sizes on tablet */
+    .site-header { padding: 0.6rem 0.9rem; }
+    .site-title { font-size: 1rem; }
+    .tabs { gap: 0.35rem; }
+    .tab { padding: 0.35rem 0.6rem; font-size: 0.95rem; }
+
+    /* content spacing: reduce top/bottom padding to bring content up */
+        .layout { padding-top: 0.35rem; padding-bottom: 0.35rem; }
+    .contenedor { padding: 1rem; gap: 1rem; }
+
+    /* make main display more fluid on narrower viewports */
+    .main-display { max-width: 100%; }
+    .main-display .main-img { width: 100%; height: auto; }
+
+    /* thumbnails slightly smaller on tablets */
+    .thumbnail { width: 60px; height: 60px; }
+    .thumbnail img { object-fit: cover; }
+
+        /* avoid collapsing margins creating extra space under sticky header */
+        .tab-panel { margin-top: 0; }
+        .tab-panel h2 { margin-top: 0.25rem; margin-bottom: 0.8rem; }
+}
+
+@media (max-width: 600px) {
+    /* mobile: remove most hero visual weight to prioritize content */
+    :root { --hero-opacity: 0.02; }
+    .layout::before { opacity: 0.02; filter: blur(1px); }
+
+    .site-header { padding: 0.5rem 0.75rem; }
+    .site-title { font-size: 0.95rem; }
+
+    /* layout padding very small to avoid large gaps */
+    .layout { padding: 0.5rem; }
+
+    .contenedor { gap: 0.6rem; }
+    .texto h2 { font-size: 1.35rem; margin-bottom: 0.9rem; }
+
+    /* thumbnails even smaller on phones */
+    .thumbnail { width: 48px; height: 48px; }
+
+    /* contact form: make fields stacked and comfortable on narrow screens */
+    .contact-container { padding: 1rem; }
+    .contact-form { grid-template-columns: 1fr; gap: 0.6rem; padding: 0.75rem; }
+    .contact-form .submit-btn { width: 100%; }
+
+    /* service cards should be single column and compact */
+    .service-grid { grid-template-columns: 1fr; gap: 0.75rem; }
+    .service-card { padding: 0.85rem; }
+
+        /* further reduce heading margins and ensure content sits close to header */
+        .tab-panel { margin-top: 0; }
+        .tab-panel h2 { margin-top: 0.15rem; margin-bottom: 0.6rem; font-size: 1.1rem; }
+}
+
+@media (max-width: 420px) {
+    /* very small screens: hide pseudo-hero entirely to avoid any perceived spacing */
+    .layout::before { display: none; }
+    .site-header { padding: 0.45rem 0.6rem; }
+    .site-title { font-size: 0.9rem; }
+    .layout { padding: 0.5rem 0.5rem 0.75rem 0.5rem; }
+}
+@media (max-width: 900px) {
+    .sidebar {
+        position: fixed !important;
+        top: var(--header-offset) !important;
+        max-height: none !important;
+    }
+}
+@media (max-width: 600px) {
+    .contenedor {
+        padding: 0.75rem !important;
+        gap: 0.5rem !important;
+    }
+}
+@media (max-width: 480px) {
+    .main-display {
+        max-width: 100% !important;
+    }
+}
+
+

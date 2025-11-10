@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code mzt</title>
+    <!-- Vincula el archivo CSS -->
+    <!-- Fuente moderna -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="Style.css">
+</head>
+<body>
+    <header class="site-header">
+        <button id="toggleSidebar" class="sidebar-toggle" aria-label="Alternar barra lateral">☰</button>
+        <h1 class="site-title">Code Mzt</h1>
+        <nav class="tabs" role="tablist" aria-label="Pestañas principales">
+            <button class="tab active" role="tab" data-target="home">Inicio</button>
+            <button class="tab" role="tab" data-target="about">Acerca</button>
+            <button class="tab" role="tab" data-target="contact">Contacto</button>
+        </nav>
+    </header>
+
+    <div class="layout">
+        <aside class="sidebar" id="sidebar">
+            <nav>
+                <ul>
+                    <li class="section-header">Seguridad</li>
+                    <li class="menu-item">
+                        <a href="cctv.html" data-nav="cctv">CCTV</a>
+                        <ul class="submenu">
+                            <li><a href="cctvkit.html">Kits de Vigilancia</a></li>
+                            <li><a href="cip.html">Cámaras IP</a></li>
+                            <li><a href="dvr.html">DVR/NVR</a></li>
+                            <li><a href="cwifi.html">Cámaras Wifi</a></li>
+                            <li><a href="acctv.html">Accesorios CCTV</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-item">
+                        <a href="alarma.html" data-nav="Alarmas">Alarmas</a>
+                        <ul class="submenu">
+                            <li><a href="#sensores">Sensores</a></li>
+                            <li><a href="#paneles">Paneles</a></li>
+                            <li><a href="#sirenas">Sirenas</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-item">
+                        <a href="cercos.html" data-nav="Cercos">Cercos Eléctricos</a>
+                        <ul class="submenu">
+                            <li><a href="#cercos">Cercos</a></li>
+                        </ul>
+                    </li>
+                    <li class="section-header">Domótica y Acceso</li>
+                    <li class="menu-item">
+                        <a href="domotica.html" data-nav="domotica">Domótica</a>
+                        <ul class="submenu">
+                            <li><a href="#domotica">Domótica</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-item">
+                        <a href="sca.html" data-nav="sca">Control de Acceso</a>
+                        <ul class="submenu">
+                            <li><a href="#sca">Control de Acceso</a></li>
+                        </ul>
+                    </li>
+                    <li class="section-header">Redes & Conectividad</li>
+                    <li class="menu-item">
+                        <a href="redes.html" data-nav="redes">Redes</a>
+                        <ul class="submenu">
+                            <li><a href="#redes">Redes</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="content">
+            <section id="home" class="tab-panel active" role="tabpanel">
+                <div class="contenedor">
+                    <div class="imagen-container">
+                        <div class="main-display">
+                            <img src="Imagenes/asensor1.png" alt="Sistema CCTV" class="main-img">
+                        </div>
+                        <div class="thumbnails">
+                            <div class="thumbnail">
+                                <img src="Imagenes/asensor1.png" alt="Sistema CCTV" class="thumb-img">
+                            </div>
+                            <div class="thumbnail">
+                                <img src="Imagenes/asensor12.png" alt="Sistema CCTV" class="thumb-img">
+                            </div>
+                        </div>
+                        <!-- Botón de selección eliminado: ahora se selecciona la imagen haciendo clic en la miniatura -->
+                    </div>
+                    <div class="texto">
+                        <h2>(AX PRO) Control Remoto para Armado y Desarmado / Teclas con Funciones Programables</h2>
+                        <div class="especificaciones">
+                            <ul>
+                                <li>🔸  Tecnología inalámbrica bidireccional para control eficiente</li>
+                                <li>🔸  Batería de 3 años, 3V CR2032 incluida</li>
+                                <li>🔸  Temperatura de operación: -10°C a 55°C</li>
+                                <li>🔸  Llavero permite armado/desarmado instantáneo</li>
+                                <li>🔸  Peso ligero de solo 16 gramos</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="contenedor">
+                    <div class="imagen-container">
+                        <div class="main-display">
+                            <img src="Imagenes/asensor2.png" alt="Sistema CCTV" class="main-img">
+                        </div>
+                        <div class="thumbnails">
+                            <div class="thumbnail">
+                                <img src="Imagenes/asensor2.png" alt="Sistema CCTV" class="thumb-img">
+                            </div>
+                            <div class="thumbnail">
+                                <img src="Imagenes/asensor22.png" alt="Sistema CCTV" class="thumb-img">
+                            </div>
+                        </div>
+                        <!-- Botón de selección eliminado: ahora se selecciona la imagen haciendo clic en la miniatura -->
+                    </div>
+                    <div class="texto">
+                        <h2>(AX PRO) Botón de Pánico Inalámbrico Portátil / IP54 / Indicador LED</h2>
+                        <div class="especificaciones">
+                            <ul>
+                                <li>🔸  Comunicación inalámbrica Tri-X de alta confiabilidad</li>
+                                <li>🔸  Protección ambiental IP54 contra polvo y agua</li>
+                                <li>🔸  Pequeño y liviano: 38x12 mm, 13.5 gramos</li>
+                                <li>🔸  Batería de 3V CR2035 incluida, fácil instalación</li>
+                                <li>🔸  Incluye accesorio de cordón y pulsera opcional</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="contenedor">
+                    <div class="imagen-container">
+                        <div class="main-display">
+                            <img src="Imagenes/asensor3.png" alt="Sistema CCTV" class="main-img">
+                        </div>
+                        <div class="thumbnails">
+                            <div class="thumbnail">
+                                <img src="Imagenes/asensor3.png" alt="Sistema CCTV" class="thumb-img">
+                            </div>
+                            <div class="thumbnail">
+                                <img src="Imagenes/asensor32.png" alt="Sistema CCTV" class="thumb-img">
+                            </div>
+                            <div class="thumbnail">
+                                <img src="Imagenes/asensor33.png" alt="Sistema CCTV" class="thumb-img">
+                            </div>
+                        </div>
+                        <!-- Botón de selección eliminado: ahora se selecciona la imagen haciendo clic en la miniatura -->
+                    </div>
+                    <div class="texto">
+                        <h2>HIKVISION DS-2CD1143G0-I(C)</h2>
+                        <div class="especificaciones">
+                            <ul>
+                                <li>🔸  Comunicación bidireccional para interacción eficiente</li>
+                                <li>🔸  Diseño delgado para instalación discreta</li>
+                                <li>🔸  Batería 3V CR2450 para larga duración</li>
+                                <li>🔸  Soporte de tamper frontal y trasero</li>
+                                <li>🔸  Tecnología inalámOperación entre 10°C y 55°C</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="contenedor">
+                    <div class="imagen-container">
+                        <div class="main-display">
+                            <img src="Imagenes/asensor4.png" alt="Sistema CCTV" class="main-img">
+                        </div>
+                        <div class="thumbnails">
+                            <div class="thumbnail">
+                                <img src="Imagenes/asensor4.png" alt="Sistema CCTV" class="thumb-img">
+                            </div>
+                            <div class="thumbnail">
+                                <img src="Imagenes/asensor42.png" alt="Sistema CCTV" class="thumb-img">
+                            </div>
+                            <div class="thumbnail">
+                                <img src="Imagenes/asensor43.png" alt="Sistema CCTV" class="thumb-img">
+                            </div>
+                        </div>
+                        <!-- Botón de selección eliminado: ahora se selecciona la imagen haciendo clic en la miniatura -->
+                    </div>
+                    <div class="texto">
+                        <h2>(AX PRO) Interruptor Inalámbrico / 1 Salida de Relevador de 100 a 240 VCA (Max. 13A)</h2>
+                        <div class="especificaciones">
+                            <ul>
+                                <li>🔸  Comunicación inalámbrica bidireccional de 433 MHz</li>
+                                <li>🔸  Cifrado AES-128 para máxima seguridad</li>
+                                <li>🔸  Diseño compacto fácilmente escondible</li>
+                                <li>🔸  Pantalla LED muestra estado dispositivo</li>
+                                <li>🔸  Salida de relevador 100-240VAC, máximo 13A</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="contenedor">
+                    <div class="imagen-container">
+                        <div class="main-display">
+                            <img src="Imagenes/asensor5.png" alt="Sistema CCTV" class="main-img">
+                        </div>
+                        <div class="thumbnails">
+                            <div class="thumbnail">
+                                <img src="Imagenes/asensor5.png" alt="Sistema CCTV" class="thumb-img">
+                            </div>
+                            <div class="thumbnail">
+                                <img src="Imagenes/asensor52.png" alt="Sistema CCTV" class="thumb-img">
+                            </div>
+                        </div>
+                        <!-- Botón de selección eliminado: ahora se selecciona la imagen haciendo clic en la miniatura -->
+                    </div>
+                    <div class="texto">
+                        <h2>(AX PRO) Detector PIR Inalámbrico Interior serie AX PRO / Inmunidad a Mascotas / Rango de Detección de 15 mts / Angulo de 85.9° de Cobertura</h2>
+                        <div class="especificaciones">
+                            <ul>
+                                <li>🔸  Rango de detección de intrusión: 15 metros</li>
+                                <li>🔸  Ángulo de detección de 85.9 grados</li>
+                                <li>🔸  Detector inalámbrico bidireccional totalmente supervisado</li>
+                                <li>🔸  Batería CR123A con 5 años de duración</li>
+                                <li>🔸  Temperatura operación: -10°C a 55°C</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="contenedor">
+                    <div class="imagen-container">
+                        <div class="main-display">
+                            <img src="Imagenes/asensor6.png" alt="Sistema CCTV" class="main-img">
+                        </div>
+                        <div class="thumbnails">
+                            <div class="thumbnail">
+                                <img src="Imagenes/asensor6.png" alt="Sistema CCTV" class="thumb-img">
+                            </div>
+                            <div class="thumbnail">
+                                <img src="Imagenes/asensor62.png" alt="Sistema CCTV" class="thumb-img">
+                            </div>
+                            <div class="thumbnail">
+                                <img src="Imagenes/asensor63.png" alt="Sistema CCTV" class="thumb-img">
+                            </div>
+                        </div>
+                        <!-- Botón de selección eliminado: ahora se selecciona la imagen haciendo clic en la miniatura -->
+                    </div>
+                    <div class="texto">
+                        <h2>(AX PRO) Sirena Inalámbrica Interior / 110 dB / Estrobo Color Azul</h2>
+                        <div class="especificaciones">
+                            <ul>
+                                <li>🔸  Buzzer de 110 dB para alta alerta sonora</li>
+                                <li>🔸  Cifrado AES-128 para máxima protección de datos</li>
+                                <li>🔸  Baterías 3V CR123A incluidas, soporte hasta 55°C</li>
+                                <li>🔸  Dimensiones compactas de 88 x 88 x 32 mm</li>
+                                <li>🔸  Comunicación bidireccional de 433 MHz Tri-X</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="contenedor">
+                    <div class="imagen-container">
+                        <div class="main-display">
+                            <img src="Imagenes/asensor7.png" alt="Sistema CCTV" class="main-img">
+                        </div>
+                        <div class="thumbnails">
+                            <div class="thumbnail">
+                                <img src="Imagenes/asensor7.png" alt="Sistema CCTV" class="thumb-img">
+                            </div>
+                            <div class="thumbnail">
+                                <img src="Imagenes/asensor72.png" alt="Sistema CCTV" class="thumb-img">
+                            </div>
+                            <div class="thumbnail">
+                                <img src="Imagenes/asensor73.png" alt="Sistema CCTV" class="thumb-img">
+                            </div>
+                        </div>
+                        <!-- Botón de selección eliminado: ahora se selecciona la imagen haciendo clic en la miniatura -->
+                    </div>
+                    <div class="texto">
+                        <h2>(AX PRO) Detector de Fugas de Agua Inalámbrico / Sensor Interno y Externo por medio de Cable</h2>
+                        <div class="especificaciones">
+                            <ul>
+                                <li>🔸  Comunicación inalámbrica con cifrado AES-128</li>
+                                <li>🔸  Tamper antisabotaje para mayor seguridad</li>
+                                <li>🔸  Batería de 3V CR2450, duración 3 años</li>
+                                <li>🔸  Funcionamiento en rangos de -10 a 55°C</li>
+                                <li>🔸  Detector de fugas de agua con indicador LED</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="contenedor">
+                    <div class="imagen-container">
+                        <div class="main-display">
+                            <img src="Imagenes/asensor8.png" alt="Sistema CCTV" class="main-img">
+                        </div>
+                        <div class="thumbnails">
+                            <div class="thumbnail">
+                                <img src="Imagenes/asensor8.png" alt="Sistema CCTV" class="thumb-img">
+                            </div>
+                            <div class="thumbnail">
+                                <img src="Imagenes/asensor82.png" alt="Sistema CCTV" class="thumb-img">
+                            </div>
+                        </div>
+                        <!-- Botón de selección eliminado: ahora se selecciona la imagen haciendo clic en la miniatura -->
+                    </div>
+                    <div class="texto">
+                        <h2>(AX PRO) Detector de Temperatura y Detector de Humedad Inalámbrico / 2.7" de Tamaño / Uso en Interior / Rango de Detección desde -35°C hasta 99°C</h2>
+                        <div class="especificaciones">
+                            <ul>
+                                <li>🔸  Comunicación inalámbrica con cifrado AES-128 seguro</li>
+                                <li>🔸  Detección de temperatura de -35°C a 99°C</li>
+                                <li>🔸  Soporta distancias de hasta 800 metros</li>
+                                <li>🔸  Funciona con baterías 3V, 2 x AAA</li>
+                                <li>🔸  Temperatura operativa de -10°C a 55°C</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="contenedor">
+                    <div class="imagen-container">
+                        <div class="main-display">
+                            <img src="Imagenes/asensor9.png" alt="Sistema CCTV" class="main-img">
+                        </div>
+                        <div class="thumbnails">
+                            <div class="thumbnail">
+                                <img src="Imagenes/asensor9.png" alt="Sistema CCTV" class="thumb-img">
+                            </div>
+                            <div class="thumbnail">
+                                <img src="Imagenes/asensor92.png" alt="Sistema CCTV" class="thumb-img">
+                            </div>
+                        </div>
+                        <!-- Botón de selección eliminado: ahora se selecciona la imagen haciendo clic en la miniatura -->
+                    </div>
+                    <div class="texto">
+                        <h2>(AX PRO) Teclado Inalámbrico para Armado y Desarmado / Funciones de Automatización para control de Relevadores</h2>
+                        <div class="especificaciones">
+                            <ul>
+                                <li>🔸  Tecnología inalámbrica bidireccional para operaciones de seguridad</li>
+                                <li>🔸  Cifrado AES-128 para máxima protección de datos</li>
+                                <li>🔸  Pantalla táctil para manipulación intuitiva del panel</li>
+                                <li>🔸  Batería de 4 AA con vida útil de 2 años</li>
+                                <li>🔸  Operación eficiente entre -10 y 55 grados Celsius</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="contenedor">
+                    <div class="imagen-container">
+                        <div class="main-display">
+                            <img src="Imagenes/asensor10.png" alt="Sistema CCTV" class="main-img">
+                        </div>
+                        <div class="thumbnails">
+                            <div class="thumbnail">
+                                <img src="Imagenes/asensor10.png" alt="Sistema CCTV" class="thumb-img">
+                            </div>
+                        </div>
+                        <!-- Botón de selección eliminado: ahora se selecciona la imagen haciendo clic en la miniatura -->
+                    </div>
+                    <div class="texto">
+                        <h2>(AX PRO) Detector de Humo Fotoeléctrico Inalámbrico para Panel de Alarma HIKVISION / Interior / Soporta Funcionalidad Autónoma / No compatible con el panel DS-PHA64-LP</h2>
+                        <div class="especificaciones">
+                            <ul>
+                                <li>🔸  Comunicación inalámbrica segura con cifrado AES-128</li>
+                                <li>🔸  Buzzer de 85dB para señales claras</li>
+                                <li>🔸  Función autónoma con batería de 3V incluida</li>
+                                <li>🔸  Detector de humo fotoeléctrico integrado</li>
+                                <li>🔸  Diseño compacto: 120x48 mm y 190.5 gramos</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="contenedor">
+                    <div class="imagen-container">
+                        <div class="main-display">
+                            <img src="Imagenes/as11.png" alt="Sistema CCTV" class="main-img">
+                        </div>
+                        <div class="thumbnails">
+                            <div class="thumbnail">
+                                <img src="Imagenes/as11.png" alt="Sistema CCTV" class="thumb-img">
+                            </div>
+                            <div class="thumbnail">
+                                <img src="Imagenes/as112.png" alt="Sistema CCTV" class="thumb-img">
+                            </div>
+                        </div>
+                        <!-- Botón de selección eliminado: ahora se selecciona la imagen haciendo clic en la miniatura -->
+                    </div>
+                    <div class="texto">
+                        <h2>(AX PRO) Detector de Temperatura Inalámbrico para Panel de Alarma HIKVISION / Interior / Soporta Funcionalidad Autónoma / Alerta cuando Excede los 57°C / No compatible con el panel DS-PHA64-LP</h2>
+                        <div class="especificaciones">
+                            <ul>
+                                <li>🔸  Comunicación inalámbrica con cifrado AES-128 seguro</li>
+                                <li>🔸  Batería de 3V con 10 años de vida útil</li>
+                                <li>🔸  Buzzer de 85 dB para alerta inmediata</li>
+                                <li>🔸  Temperatura operativa de -10°C a 50°C</li>
+                                <li>🔸  Dimensiones compactas: 120 x 42 mm</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="contenedor">
+                    <div class="imagen-container">
+                        <div class="main-display">
+                            <img src="Imagenes/as12.png" alt="Sistema CCTV" class="main-img">
+                        </div>
+                        <div class="thumbnails">
+                            <div class="thumbnail">
+                                <img src="Imagenes/as12.png" alt="Sistema CCTV" class="thumb-img">
+                            </div>
+                            <div class="thumbnail">
+                                <img src="Imagenes/as122.png" alt="Sistema CCTV" class="thumb-img">
+                            </div>
+                        </div>
+                        <!-- Botón de selección eliminado: ahora se selecciona la imagen haciendo clic en la miniatura -->
+                    </div>
+                    <div class="texto">
+                        <h2>(AX PRO) Cámara Exterior IP66 / IR 15mts / Exterior IP66 / Requiere DS-PDTT15AM-LM-WB</h2>
+                        <div class="especificaciones">
+                            <ul>
+                                <li>🔸  Rango de detección hasta 15 m ajustable</li>
+                                <li>🔸  Voltaje operativo: baterías 3V / 1200mA</li>
+                                <li>🔸  Funciona a temperaturas de -25°C a 60°C</li>
+                                <li>🔸  Dimensiones compactas: 74.1x72.35x53 mm</li>
+                                <li>🔸  Cámara infrarroja para videoverificación avanzada</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="contenedor">
+                    <div class="imagen-container">
+                        <div class="main-display">
+                            <img src="Imagenes/as13.png" alt="Sistema CCTV" class="main-img">
+                        </div>
+                        <div class="thumbnails">
+                            <div class="thumbnail">
+                                <img src="Imagenes/as13.png" alt="Sistema CCTV" class="thumb-img">
+                            </div>
+                            <div class="thumbnail">
+                                <img src="Imagenes/as132.png" alt="Sistema CCTV" class="thumb-img">
+                            </div>
+                        </div>
+                        <!-- Botón de selección eliminado: ahora se selecciona la imagen haciendo clic en la miniatura -->
+                    </div>
+                    <div class="texto">
+                        <h2>(AX PRO) Repetidor de Señal Hikvision / LED Indicador / Batería de Respaldo/ No compatible con el panel DS-PHA64-LP</h2>
+                        <div class="especificaciones">
+                            <ul>
+                                <li>🔸  Comunicación inalámbrica 433 MHz estable y segura</li>
+                                <li>🔸  Sensores enlazados automáticamente para eficiencia</li>
+                                <li>🔸  Indicador LED con estados fácilmente comprensibles</li>
+                                <li>🔸  35 horas de respaldo de batería autónoma</li>
+                                <li>🔸  Pruebas en sitio recomendadas por variabilidad del entorno</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="about" class="tab-panel" role="tabpanel" hidden>
+                <h2>Acerca</h2>
+                <div class="about-text">
+                    <p class="lead">En CODE, nos apasiona proteger lo que más valoras.</p>
+
+                    <p>Nos dedicamos a brindar soluciones integrales en seguridad para hogares y negocios, trabajando con marcas reconocidas y productos de la más alta calidad.</p>
+
+                    <p>Nuestro compromiso es ofrecerte tranquilidad, confianza y tecnología de punta, adaptándonos a tus necesidades con instalaciones profesionales y atención personalizada.</p>
+
+                    <div class="service-grid" aria-hidden="false">
+                        <div class="service-card">
+                            <h4>Instalación profesional</h4>
+                            <p>Instalamos equipos con certificación y pruebas en sitio, cuidando estética y funcionamiento.</p>
+                        </div>
+                        <div class="service-card">
+                            <h4>Mantenimiento &amp; Soporte</h4>
+                            <p>Planes preventivos y soporte técnico rápido para mantener tus sistemas siempre activos.</p>
+                        </div>
+                        <div class="service-card">
+                            <h4>Integración &amp; Automatización</h4>
+                            <p>Integramos cámaras, alarmas y control de acceso con plataformas para monitoreo y control remoto.</p>
+                        </div>
+                    </div>
+
+                    <p>Porque tu seguridad no es un lujo, es una prioridad.</p>
+
+                    <ul class="values-list">
+                        <li>Calidad</li>
+                        <li>Confianza</li>
+                        <li>Soporte 24/7</li>
+                    </ul>
+
+                    <div class="about-cta">
+                        <a href="#contact" class="cta-button">Contáctanos</a>
+                    </div>
+                </div>
+            </section>
+
+            <section id="contact" class="tab-panel" role="tabpanel" hidden>
+                <h2>Contacto</h2>
+                <div class="contact-container">
+                    <form class="contact-form" id="contactForm">
+                        <div class="form-group">
+                            <label for="nombre">Nombre completo *</label>
+                            <input type="text" id="nombre" name="nombre" required placeholder="Tu nombre completo">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="empresa">Empresa (opcional)</label>
+                            <input type="text" id="empresa" name="empresa" placeholder="Nombre de la empresa">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="asunto">Asunto *</label>
+                            <select id="asunto" name="asunto" required>
+                                <option value="">Seleccione una opción</option>
+                                <option value="Cotización">Solicitar cotización</option>
+                                <option value="Soporte">Soporte técnico</option>
+                                <option value="Información">Información general</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Correo electrónico (opcional)</label>
+                            <input type="email" id="email" name="email" placeholder="tu@ejemplo.com">
+                        </div>
+
+                        <div class="form-group full">
+                            <label for="mensaje">Mensaje *</label>
+                            <textarea id="mensaje" name="mensaje" rows="5" required placeholder="Cuéntanos brevemente en qué podemos ayudarte..."></textarea>
+                        </div>
+
+                        <div class="form-group full">
+                            <small class="contact-note">Al enviar aceptas que usemos la información para contactarte. Respetamos tu privacidad.</small>
+                        </div>
+
+                        <button type="submit" class="submit-btn">Enviar por WhatsApp</button>
+                    </form>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <footer class="site-footer">
+        <p>&copy; 2024 Mi Sitio Web</p>
+    </footer>
+
+    <!-- Vincula el archivo JavaScript al final del body -->
+    <script src="script.js"></script>
+</body>
+</html>

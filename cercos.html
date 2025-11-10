@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code mzt</title>
+    <!-- Vincula el archivo CSS -->
+    <!-- Fuente moderna -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="Style.css">
+</head>
+<body>
+    <header class="site-header">
+        <button id="toggleSidebar" class="sidebar-toggle" aria-label="Alternar barra lateral">☰</button>
+        <h1 class="site-title">Code Mzt</h1>
+        <nav class="tabs" role="tablist" aria-label="Pestañas principales">
+            <button class="tab active" role="tab" data-target="home">Inicio</button>
+            <button class="tab" role="tab" data-target="about">Acerca</button>
+            <button class="tab" role="tab" data-target="contact">Contacto</button>
+        </nav>
+    </header>
+
+    <div class="layout">
+        <aside class="sidebar" id="sidebar">
+            <nav>
+                <ul>
+                    <li class="section-header">Seguridad</li>
+                    <li class="menu-item">
+                        <a href="cctv.html" data-nav="cctv">CCTV</a>
+                        <ul class="submenu">
+                            <li><a href="cctvkit.html">Kits de Vigilancia</a></li>
+                            <li><a href="cip.html">Cámaras IP</a></li>
+                            <li><a href="dvr.html">DVR/NVR</a></li>
+                            <li><a href="cwifi.html">Cámaras Wifi</a></li>
+                            <li><a href="acctv.html">Accesorios CCTV</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-item">
+                        <a href="alarma.html" data-nav="Alarmas">Alarmas</a>
+                        <ul class="submenu">
+                            <li><a href="asensores.html">Sensores</a></li>
+                            <li><a href="#paneles">Paneles</a></li>
+                            <li><a href="#sirenas">Sirenas</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-item">
+                        <a href="cercos.html" data-nav="Cercos">Cercos Eléctricos</a>
+                        <ul class="submenu">
+                            <li><a href="#cercos">Cercos</a></li>
+                        </ul>
+                    </li>
+                    <li class="section-header">Domótica y Acceso</li>
+                    <li class="menu-item">
+                        <a href="domotica.html" data-nav="domotica">Domótica</a>
+                        <ul class="submenu">
+                            <li><a href="#domotica">Domótica</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-item">
+                        <a href="sca.html" data-nav="sca">Control de Acceso</a>
+                        <ul class="submenu">
+                            <li><a href="#sca">Control de Acceso</a></li>
+                        </ul>
+                    </li>
+                    <li class="section-header">Redes & Conectividad</li>
+                    <li class="menu-item">
+                        <a href="redes.html" data-nav="redes">Redes</a>
+                        <ul class="submenu">
+                            <li><a href="#redes">Redes</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+       
+
+            <section id="about" class="tab-panel" role="tabpanel" hidden>
+                <h2>Acerca</h2>
+                <div class="about-text">
+                    <p class="lead">En CODE, nos apasiona proteger lo que más valoras.</p>
+
+                    <p>Nos dedicamos a brindar soluciones integrales en seguridad para hogares y negocios, trabajando con marcas reconocidas y productos de la más alta calidad.</p>
+
+                    <p>Nuestro compromiso es ofrecerte tranquilidad, confianza y tecnología de punta, adaptándonos a tus necesidades con instalaciones profesionales y atención personalizada.</p>
+
+                    <div class="service-grid" aria-hidden="false">
+                        <div class="service-card">
+                            <h4>Instalación profesional</h4>
+                            <p>Instalamos equipos con certificación y pruebas en sitio, cuidando estética y funcionamiento.</p>
+                        </div>
+                        <div class="service-card">
+                            <h4>Mantenimiento &amp; Soporte</h4>
+                            <p>Planes preventivos y soporte técnico rápido para mantener tus sistemas siempre activos.</p>
+                        </div>
+                        <div class="service-card">
+                            <h4>Integración &amp; Automatización</h4>
+                            <p>Integramos cámaras, alarmas y control de acceso con plataformas para monitoreo y control remoto.</p>
+                        </div>
+                    </div>
+
+                    <p>Porque tu seguridad no es un lujo, es una prioridad.</p>
+
+                    <ul class="values-list">
+                        <li>Calidad</li>
+                        <li>Confianza</li>
+                        <li>Soporte 24/7</li>
+                    </ul>
+
+                    <div class="about-cta">
+                        <a href="#contact" class="cta-button">Contáctanos</a>
+                    </div>
+                </div>
+            </section>
+
+            <section id="contact" class="tab-panel" role="tabpanel" hidden>
+                <h2>Contacto</h2>
+                <div class="contact-container">
+                    <form class="contact-form" id="contactForm">
+                        <div class="form-group">
+                            <label for="nombre">Nombre completo *</label>
+                            <input type="text" id="nombre" name="nombre" required placeholder="Tu nombre completo">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="empresa">Empresa (opcional)</label>
+                            <input type="text" id="empresa" name="empresa" placeholder="Nombre de la empresa">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="asunto">Asunto *</label>
+                            <select id="asunto" name="asunto" required>
+                                <option value="">Seleccione una opción</option>
+                                <option value="Cotización">Solicitar cotización</option>
+                                <option value="Soporte">Soporte técnico</option>
+                                <option value="Información">Información general</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Correo electrónico (opcional)</label>
+                            <input type="email" id="email" name="email" placeholder="tu@ejemplo.com">
+                        </div>
+
+                        <div class="form-group full">
+                            <label for="mensaje">Mensaje *</label>
+                            <textarea id="mensaje" name="mensaje" rows="5" required placeholder="Cuéntanos brevemente en qué podemos ayudarte..."></textarea>
+                        </div>
+
+                        <div class="form-group full">
+                            <small class="contact-note">Al enviar aceptas que usemos la información para contactarte. Respetamos tu privacidad.</small>
+                        </div>
+
+                        <button type="submit" class="submit-btn">Enviar por WhatsApp</button>
+                    </form>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <footer class="site-footer">
+        <p>&copy; 2024 Mi Sitio Web</p>
+    </footer>
+
+    <!-- Vincula el archivo JavaScript al final del body -->
+    <script src="script.js"></script>
+</body>
+</html>

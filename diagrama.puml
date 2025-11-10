@@ -1,0 +1,42 @@
+@startuml
+' Configuración para una mejor visualización de las clases
+'skinparam classAttributeIconSize 0
+
+' Definición de la Clase Procesador
+class Procesador {
+    - marca : String
+    - velocidadGHz : double
+    + Procesador(marca, velocidadGHz)
+    + mostrarInfo() : void
+}
+
+' Definición de la Clase Periferico
+class Periferico {
+    - nombre : String
+    - tipo : String
+    + Periferico(nombre, tipo)
+    + mostrarInfo() : void
+}
+
+' Definición de la Clase Computadora
+class Computadora {
+    - marca : String
+    - modelo : String
+    - procesador : Procesador
+    - perifericos : List<Periferico>
+    + Computadora(marca, modelo, procesador)
+    + agregarPeriferico(p: Periferico) : void
+    + mostrarInfo() : void
+}
+
+' ---------------------------------------
+' Relaciones
+' ---------------------------------------
+
+' Computadora TIENE UN Procesador (Composición: Procesador es vital para Computadora)
+Computadora "1" *-- "1" Procesador : tiene
+
+' Computadora TIENE VARIOS Perifericos (Agregación: Periféricos existen independientemente)
+Computadora "1" o-- "*" Periferico : tiene
+
+@enduml
