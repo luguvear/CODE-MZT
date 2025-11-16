@@ -171,6 +171,26 @@
   //   if (window.innerWidth <= 900) closeAll();
   // });
 
+  // Manejar enlaces internos como #contact que no tienen clase .tab
+document.querySelectorAll('a[href^="#"]').forEach(link => {
+  link.addEventListener('click', (e) => {
+    const targetId = link.getAttribute('href').substring(1);
+    const panel = document.getElementById(targetId);
+    if (panel && panel.classList.contains('tab-panel')) {
+      e.preventDefault();
+      tabs.forEach(t => t.classList.remove('active'));
+      panels.forEach(p => { p.classList.remove('active'); p.hidden = true; });
+
+      panel.classList.add('active');
+      panel.hidden = false;
+
+      // Activar la pestaña correspondiente si existe
+      const matchingTab = document.querySelector(`.tab[data-target="${targetId}"]`);
+      if (matchingTab) matchingTab.classList.add('active');
+    }
+  });
+});
+
   // ---------------- Tabs (inicio / acerca / contacto) ----------------
   const tabs = document.querySelectorAll('.tab');
   const panels = document.querySelectorAll('.tab-panel');
